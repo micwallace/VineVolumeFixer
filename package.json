@@ -1,0 +1,24 @@
+{
+  "title": "VineVolumeFixer",
+  "name": "vinevolumefixer",
+  "version": "0.0.1",
+  "description": "Adjusts vine video volume to a normal level!",
+  "main": "index.js",
+  "author": "Michael Wallace",
+  "license": "GPL",
+  "engines": {
+    "firefox": ">=38.0a1"
+  },
+  "permissions": {
+	"cross-domain-content": [
+		"https://v.cdn.vine.co/"
+	]
+  },
+  "preferences": [{
+        "name": "defaultvolume",
+        "title": "Default Volume Level",
+        "description": "Set all vines to this volume when loaded",
+        "type": "integer",
+        "value": 25
+  }]
+}
