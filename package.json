@@ -14,11 +14,20 @@
 		"https://v.cdn.vine.co/"
 	]
   },
-  "preferences": [{
-        "name": "defaultvolume",
-        "title": "Default Volume Level",
-        "description": "Set all vines to this volume when loaded",
-        "type": "integer",
-        "value": 25
-  }]
+  "preferences": [
+      {
+          "name": "defaultvolume",
+          "title": "Default Volume Level",
+          "description": "Set all vines to this volume when loaded",
+          "type": "integer",
+          "value": 25
+      },
+      {
+        "name": "showui",
+        "title": "Show Volume Control",
+        "description": "Show volume control for videos",
+        "type": "bool",
+        "value": true
+      }
+  ]
 }
