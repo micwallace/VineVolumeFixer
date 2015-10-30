@@ -1,7 +1,7 @@
 {
   "title": "VineVolumeFixer",
   "name": "vinevolumefixer",
-  "version": "0.0.1",
+  "version": "1.0.1",
   "description": "Adjusts vine video volume to a normal level!",
   "main": "index.js",
   "author": "Michael Wallace",
@@ -20,12 +20,19 @@
           "title": "Default Volume Level",
           "description": "Set all vines to this volume when loaded",
           "type": "integer",
-          "value": 25
+          "value": 15
       },
       {
         "name": "showui",
         "title": "Show Volume Control",
         "description": "Show volume control for videos",
+        "type": "bool",
+        "value": true
+      },
+      {
+        "name": "unmute",
+        "title": "Unmute Videos",
+        "description": "Unmute videos on start (vine default is muted)",
         "type": "bool",
         "value": true
       }
