@@ -3,7 +3,7 @@ var isEmbed = document.getElementsByClassName("embed").length>0;
 
 function setCurrentVolume(video){
     video.volume = currentVolume;
-    console.log("volume adjusted: "+video.volume);
+    //console.log("VineVolumeFixer: volume adjusted: "+video.volume);
 }
 
 function unmuteVideo(video){
@@ -21,12 +21,16 @@ function addVolumeControl(video){
     // element to attach volume control to
     var target = isEmbed?document.getElementsByClassName("actions")[0]:video.parentElement.parentElement;
 
-    if (target.querySelector(".vine_volume_fix_control")!==null)
+    if (target.querySelector(".vine_volume_fix_control")!==null) // prevent multiple controls
         return;
 
-    var div = document.createElement('div');
-    div.innerHTML = '<input class="vine_volume_fix_control" type="range" min="0" max="1" step="0.01" value="' + self.options.defaultvolume + '">';
-    var volumeBar = div.childNodes[0];
+    var volumeBar = document.createElement("input");
+    volumeBar.className = "vine_volume_fix_control";
+    volumeBar.type = "range";
+    volumeBar.min = 0;
+    volumeBar.max = 1;
+    volumeBar.step = 0.01;
+    volumeBar.value = self.options.defaultvolume;
 
     volumeBar.addEventListener("change", function(e) {
         currentVolume = volumeBar.value;
@@ -40,6 +44,7 @@ function addVolumeControl(video){
     volumeBar.style.background = "none";
     volumeBar.style.cursor = "pointer";
 
+    // embedded vine player controls are positioned differently
     if (isEmbed){
         volumeBar.style.opacity = 1;
         volumeBar.style.bottom = "2px";
@@ -57,11 +62,11 @@ function addVolumeControl(video){
     }
 
     target.appendChild(volumeBar);
-    console.log("Volume Meter added");
+    //console.log("VineVolumeFixer: volume meter added");
 }
 
 document.addEventListener('loadeddata', function(e){
-    console.log("onloadeddata");
+    //console.log("VineVolumeFixer: onloadeddata");
     setCurrentVolume(e.target);
     addVolumeControl(e.target);
     if (self.options.unmute) {
@@ -76,14 +81,14 @@ document.addEventListener('loadeddata', function(e){
 // embedded player mutes on each play
 if (isEmbed)
     document.addEventListener('play', function(e){
-        console.log("onplay");
+        //console.log("VineVolumeFixer: onplay");
         if (self.options.unmute) {
             setTimeout(function(){ unmuteVideo(e.target); }, 500);
         }
     }, true);
 
 document.addEventListener('volumechange', function(e){
-    console.log("onvolumechange");
+    //console.log("VineVolumeFixer: onvolumechange");
     setCurrentVolume(e.target);
 }, true);
 
