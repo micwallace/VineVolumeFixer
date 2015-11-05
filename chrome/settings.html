@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>VineVolumeFixer Options</title>
+    <style>
+        body { padding: 10px; }
+    </style>
+</head>
+<body>
+
+Default Volume:
+<input id="defaultvolume" type="range" min="0" max="100" value="15" />
+<br/>
+<label>
+    <input type="checkbox" id="showui">
+    Show Volume Controls
+</label>
+<br/>
+<label>
+    <input type="checkbox" id="unmute">
+    Unmute Videos (Vine default is muted)
+</label>
+
+<div id="status"></div>
+<button id="save">Save</button>
+
+<script>
+    // Saves options to chrome.storage
+    function save_options() {
+        chrome.storage.sync.set({
+            defaultvolume: document.getElementById('defaultvolume').value,
+            showui: document.getElementById('showui').checked,
+            unmute: document.getElementById('unmute').checked
+        }, function() {
+            // Update status to let user know options were saved.
+            var status = document.getElementById('status');
+            status.textContent = 'Options saved.';
+            setTimeout(function() {
+                status.textContent = '';
+            }, 750);
+        });
+    }
+
+    // Restores select box and checkbox state using the preferences
+    // stored in chrome.storage.
+    function restore_options() {
+        // Use default value color = 'red' and likesColor = true.
+        chrome.storage.sync.get({
+            defaultvolume: 15,
+            showui: true,
+            unmute: true
+        }, function(items) {
+            document.getElementById('defaultvolume').value = items.defaultvolume;
+            document.getElementById('showui').checked = items.showui;
+            document.getElementById('unmute').checked = items.unmute;
+        });
+    }
+    document.addEventListener('DOMContentLoaded', restore_options);
+    document.getElementById('save').addEventListener('click', save_options);
+</script>
+</body>
+</html>
