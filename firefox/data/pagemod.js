@@ -9,8 +9,16 @@ function setCurrentVolume(video){
 function unmuteVideo(video){
     video.muted = false;
     // unmute ui, only needed for embedded player
+    muteUi(false);
+}
+
+function muteUi(mute){
     if (isEmbed){
-        document.getElementsByClassName("mute-button")[1].classList.remove("muted");
+	if (mute){
+	    document.getElementsByClassName("VolumeControl")[0].classList.add("VolumeControl--muted");
+	} else {
+	    document.getElementsByClassName("VolumeControl")[0].classList.remove("VolumeControl--muted");
+	}
     }
 }
 
@@ -19,10 +27,13 @@ function addVolumeControl(video){
         return;
 
     // element to attach volume control to
-    var target = isEmbed?document.getElementsByClassName("actions")[0]:video.parentElement.parentElement;
+    var target = isEmbed?document.getElementsByClassName("VolumeControl")[0]:video.parentElement.parentElement;
 
     if (target.querySelector(".vine_volume_fix_control")!==null) // prevent multiple controls
         return;
+
+    if (isEmbed)
+	document.getElementsByClassName("VolumeControl__text-wrapper")[0].remove();
 
     var volumeBar = document.createElement("input");
     volumeBar.className = "vine_volume_fix_control";
@@ -47,7 +58,7 @@ function addVolumeControl(video){
     // embedded vine player controls are positioned differently
     if (isEmbed){
         volumeBar.style.opacity = 1;
-        volumeBar.style.bottom = "2px";
+	volumeBar.style.margin = "14px 45px 0 5px";
     } else {
         volumeBar.style.position = "absolute";
         volumeBar.style.top = "6px";
@@ -90,6 +101,7 @@ if (isEmbed)
 document.addEventListener('volumechange', function(e){
     //console.log("VineVolumeFixer: onvolumechange");
     setCurrentVolume(e.target);
+    muteUi(e.target.volume==0);
 }, true);
 
 var videos = document.getElementsByTagName("video");

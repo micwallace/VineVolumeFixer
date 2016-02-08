@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "VineVolumeFixer",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Adjusts vine video volume to a normal level & adds volume controls",
   "permissions": [
     "storage"

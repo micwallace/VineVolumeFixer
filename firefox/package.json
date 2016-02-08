@@ -1,7 +1,7 @@
 {
   "title": "VineVolumeFixer",
   "name": "vinevolumefixer",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Adjusts vine video volume to a normal level and adds volume controls",
   "main": "index.js",
   "author": "Michael Wallace",
